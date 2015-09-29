@@ -4,6 +4,58 @@
 
 \begin{document}
 
-foo bar
+The \emph{recursion principle} is the rule that states that
+${\rec{A \times B} (f) : A \times B \to C}$ is well defined,
+and it is taken as a primitive notion.
+We are asked to instead take the well-definedness of ${\proj{1}}$ and
+${\proj{2}}$ as primitive instead and to derive the recursion principle.
+
+Definitions of ${\rec{A \times B}}$, ${\proj{1}}$, and ${\proj{2}}$ are
+given below for convenience.
+
+\begin{align*}
+  &\rec{A \times B} : (A \to B \to C) \to A \times B \to C \\
+  &\rec{A \times B} (f) ((a,b)) := f (a) (b) \\
+  \\
+  &\proj{1} : A \times B \to A \\
+  &\proj{1} := \rec{A \times B} (\lambda \, a \, b \mapsto a) \\
+  \\
+  &\proj{2} : A \times B \to B \\
+  &\proj{2} := \rec{A \times B} (\lambda \, a \, b \mapsto b) \\
+\end{align*}
+
+(In agreement with the notation used in the text,
+${\lambda \, a \, b \mapsto \Phi}$ is merely shorthand for
+${\lambda \, a \mapsto (\lambda \, b \mapsto \Phi)}$. We can think of
+such an expression as a ``two-variable'' curried function [mmmm,
+curry].)
+
+We need primitive definitions of ${\proj{1}}$ and ${\proj{2}}$.
+
+\begin{align*}
+  &\proj{1} : A \times B \to A \\
+  &\proj{1} (a,b) := a \\
+  \\
+  &\proj{2} : A \times B \to B \\
+  &\proj{2} (a,b) := b \\
+\end{align*}
+
+We define
+
+\begin{align*}
+  &\rec{A \times B}' : (A \to B \to C) \to A \times B \to C \\
+  &\rec{A \times B}' (f) ((a,b)) := f (\proj{1} (a,b)) (\proj{2} (a,b)) \\
+\end{align*}
+
+We have
+
+\begin{align*}
+  \rec{A \times B} (f) (a,b)
+  &= f (a) (b) \\
+  &= f (\proj{1} (a,b)) (\proj{2} (a,b)) \\
+  &= \rec{A \times B}' (f) (a,b) \\
+\end{align*}
+
+So ${\rec{A \times B} = \rec{A \times B}'}$.
 
 \end{document}
