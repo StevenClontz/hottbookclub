@@ -61,7 +61,7 @@ p_1 &\defeq \ind \N (P_1, \refl 0, r_1)
 \end{align*}
 Commutativity: \(P_2 \defeq \prod_{a,b : \nat} a + b =b + a\).
 \begin{align*}
-r_2 &\defeq \lam n \lam p \ipl \star \apply \suc (p) \star \ipr\\
+r_2 &\defeq \lam n \lam p \ipl \star \apply \suc (p) \star \sym{\nat}(\ipr)\\
 p_2 &\defeq \ind \N (P_2, p_0, r_2)
 \end{align*}
 Zero annihilation (left): \(P_3 \defeq \prod_{a:\nat} 0 \times a = 0\).
