@@ -1,1 +1,17 @@
+\documentclass[12pt]{book}
+\input{./preamble}
+\begin{document}
+Define \(g \circ f :\equiv \lambda (x : A) . g ( f x )\). Then if \(x : A\) then \(f x  : B\) and \(g ( f x ) : C\), so \(\lambda (x : A) . g ( f x )\) has the desired type \(A \rightarrow C\) .
 
+Suppose \( f: A \rightarrow B\), \(g : B \rightarrow C\), and \(h : C \rightarrow D\). We have
+\begin{align*} 
+&h \circ (g \circ f) \\
+&=\lambda x . (h \circ (g \circ f)) x \\
+&= \lambda x . h ((g \circ f) x) \\
+&=\lambda x . h ( g (f x)) \\
+&=\lambda x . (h \circ g) (f x) \\
+&= \lambda x . ((h \circ g) \circ f) x \\
+&= (h \circ g) \circ f.
+\end{align*}
+
+\end{document}

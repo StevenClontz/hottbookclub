@@ -1,0 +1,97 @@
+\documentclass[12pt]{book}
+\input{./preamble}
+\begin{document}
+Recall that \(\rec \N \) has type
+\[\rec \N  : \prod_{C:\UU} C \rightarrow (\N \rightarrow C \rightarrow C) \rightarrow C,\]
+and defining equations
+\begin{align*}
+\rec{\N}(C, c_0, c_s, 0) &\defeq c_0, \\
+\rec{\N}(C, c_0, c_s, \suc(n)) &\defeq c_s(n, \rec{\N}(C, c_0, c_s, n)).
+\end{align*}
+Define 
+\begin{align*}
+\mu_0 &\defeq \lam n 0,\\
+\mu_s &\defeq \lam n \lam g \lam m g(m) + m,\\
+\mult &\defeq \rec{\N}(\N \rightarrow \N, \mu_0, \mu_s).
+\end{align*}
+Then we have
+\begin{align*}
+\mult(0,m) &\equiv \rec{\N}(\N \rightarrow \N, \mu_0, \mu_s, 0)(m), \\
+&\equiv \mu_0(m),\\
+&\equiv 0,
+\end{align*}
+and
+\begin{align*}
+\mult(\suc(n),m)&\equiv \rec \N (\N \rightarrow \N, \mu_0, \mu_s, \suc(n))(m),\\
+& \equiv \mu_s(n,\rec \N (\N \rightarrow \N, \mu_0, \mu_s, n) )(m),\\
+& \equiv \mu_s(n,\mult(n))(m),\\
+& \equiv \mult(n,m) + m,
+\end{align*}
+Which behaves like we would expect of multiplication. Similarly, we define
+\begin{align*}
+e_0 &\defeq 1, \\
+e_s &\defeq \lam n \lam g \lam m \mult(g(m), m), \\
+\exp & \defeq \rec \N ( \N \rightarrow \N, e_0, e_s),
+\end{align*}
+and everything works out similarly. (Note that here \(\exp(n,m)\) means \(m ^ n\).)
+
+Next, we will show that \((\N, 0, +, \times, 1)\) forms a semiring. We will be needing the following functions throughout:
+
+\newcommand{\apply}[1]{\mathsf{ap} _ #1}%
+\newcommand{\transit}[1]{\mathsf{tr} _ {#1}}%
+\newcommand{\sym}[1]{\mathsf{sym} _ {#1}}%
+\newcommand{\ipl}{\mathsf{ipl}}
+\newcommand{\ipr}{\mathsf{ipr}}
+\newcommand{\iml}{\mathsf{iml}}
+\newcommand{\imr}{\mathsf{imr}}
+\begin{align*}
+&\apply \suc : \prod_{m,n : \nat} (m =_\nat n) \rightarrow (\suc (m) =_\nat \suc (n)) & & \S 1.9\\
+&\transit{\nat} :\prod_{a,b,c : A} a =_A b \rightarrow b =_A c \rightarrow a =_A c && \S 2.1 \\
+&\sym{\nat} :\prod_{a,b:A}a =_A b \rightarrow b =_A a  && \S 2.1 \\
+&\ipl : \prod_{a,b : \nat} \suc(a) + b =_\nat  \suc(a + b) && \text{From judgemental equality.}\\
+&\ipr : \prod_{a,b : \nat} a + \suc(b) =_\nat  \suc(a + b) && \text{From judgemental equality.}\\
+\end{align*}
+For convenience most dependent arguments are omitted when clear from context and \(\transit \nat\) is written infix as \(\star\). I may be doing something wrong here, but most of these follow from judgemental equality with \(\ind \N\) just there to pack things into the dependent type. That's why there are so many \(\mathsf{refl}\)s.\\
+Left identity: \(P_0 \defeq \prod_{n:\nat} 0 + n = n\).
+\[p_0 \defeq \ind \N (P_0, \refl 0, \lam n \lam p \refl n) \]
+Right identity: \(P_1 \defeq \prod_{n : \nat} n + 0 = n\).
+\begin{align*}
+r_1 &\defeq \lam n \lam p \ipl \star \apply \suc (p) \\
+p_1 &\defeq \ind \N (P_1, \refl 0, r_1)
+\end{align*}
+Commutativity: \(P_2 \defeq \prod_{a,b : \nat} a + b =b + a\).
+\begin{align*}
+r_2 &\defeq \lam n \lam p \ipl \star \apply \suc (p) \star \ipr\\
+p_2 &\defeq \ind \N (P_2, p_0, r_2)
+\end{align*}
+Zero annihilation (left): \(P_3 \defeq \prod_{a:\nat} 0 \times a = 0\).
+\[p_3 \defeq \ind \N (P_3, \refl 0, \lam n \lam p \refl 0)\]
+Zero annihilation (right): \(P_4 \defeq \prod_{a:\nat} a \times 0 = 0\).
+\[p_4 \defeq \ind \N (P_4, \refl 0, \lam n \lam p \refl 0)\]
+Unit (left): \(P_5 \defeq \prod_{a:\nat} 1 \times a = a\)
+\[p_5 \defeq \ind \N (P_5, \refl 0, \lam n \lam p \refl n)\]
+Unit (right):  \(P_6 \defeq \prod_{a:\nat} a \times 1 = a\)
+\begin{align*}
+h_6 &\defeq \ind \N (\textstyle\prod_{n : \nat} \suc(n) \times 1 = \suc(n \times 1), \refl 0, \lam n \lam p \refl n) \\
+r_6 &\defeq \lam n \lam p h_6 \star \apply \suc (p)\\
+p_6 &\defeq \ind \N (P_5, \refl 0, r_6 )
+\end{align*}
+To be continued maybe. This exercise is pretty long, and I'm pretty sure the hairy part is still ahead.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

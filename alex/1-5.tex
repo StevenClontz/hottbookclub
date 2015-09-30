@@ -1,0 +1,17 @@
+\documentclass[12pt]{book}
+\input{./preamble}
+\begin{document}
+Recall that the type of \(\ind{A+B}\) is 
+\[\prod_{C:(A+B) \rightarrow \UU} \left(\prod_{a:A}C(\inl(a))\right) \rightarrow \left(\prod_{b:B}C(\inr(b))\right) \rightarrow \prod_{x:A+B}C(x).\]
+If \(x : A + B\) then either \(x = (0_\bool , a)\) with \(a : A\) or \(x = (1_\bool, b)\) with \(b : B\). Thus we may define \(\ind{A+B}\) by the following case analysis.
+\begin{align*}
+\ind{A+B}(C,g_0,g_1,(0_\bool,a)) \defeq g_0(a)\\
+\ind{A+B}(C,g_0,g_1,(1_\bool,b)) \defeq g_1(b)
+\end{align*}
+Since \(\inl(a) = (0_\bool,a)\) and \(\inr(b) = (1_\bool,b)\) the, types of \(g_0(a) : C (\inl(a))\) and \(g_1(b) : C (\inr(b))\) are judgementally equal to  \(C (0_\bool,a)\) and \(C (1_\bool,b)\) respectively. In either case \(\ind{A+B}(C,g_0,g_1,x) : C(x)\). Additionaly, by substitution we have
+\begin{align*}
+\ind{A+B}(C, g_0,g_1,\inl(a)) \equiv g_0(a),\\
+\ind{A+B}(C, g_0,g_1,\inr(b)) \equiv g_1(b),
+\end{align*}
+as desired.
+\end{document}
