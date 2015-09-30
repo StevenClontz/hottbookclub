@@ -27,7 +27,7 @@ and
 & \equiv \mu_s(n,\mult(n))(m),\\
 & \equiv \mult(n,m) + m,
 \end{align*}
-Which behaves like we would expect of multiplication. Similarly, we define
+which behaves like we would expect of multiplication. Similarly, we define
 \begin{align*}
 e_0 &\defeq 1, \\
 e_s &\defeq \lam n \lam g \lam m \mult(g(m), m), \\
@@ -76,9 +76,14 @@ h_6 &\defeq \ind \N (\textstyle\prod_{n : \nat} \suc(n) \times 1 = \suc(n \times
 r_6 &\defeq \lam n \lam p h_6 \star \apply \suc (p)\\
 p_6 &\defeq \ind \N (P_5, \refl 0, r_6 )
 \end{align*}
-To be continued maybe. This exercise is pretty long, and I'm pretty sure the hairy part is still ahead.
-
-
+To be continued (maybe). I think that to get distributivity or associativity of multiplication I will need some substitution rules of the form
+\begin{align*}
+\mathsf{spl} : \prd{a,b,c:\nat} (\id{a}{b}) \rightarrow (\id{a + c}{b + c}),\\
+\mathsf{spr} : \prd{a,b,c:\nat} (\id{a}{b}) \rightarrow (\id{c + a}{c + b}),\\
+\mathsf{sml} : \prd{a,b,c:\nat} (\id{a}{b}) \rightarrow (\id{a \times c}{b \times c}),\\
+\mathsf{smr} : \prd{a,b,c:\nat} (\id{a}{b}) \rightarrow (\id{c \times a}{c \times b}),
+\end{align*}
+which likely need inductive constructions as well. This is where my patience for this kind of thing starts to run thin.
 
 
 

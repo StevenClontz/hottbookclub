@@ -1,0 +1,21 @@
+\documentclass[12pt]{book}
+\input{./preamble}
+\begin{document}
+Well, let's start going through it and see where we run into trouble.
+
+The induction rule that allows the defining equation to depend on a variable is path induction, which demands of us a type family
+\[C : \prd {x,y:A} (\id[A]{x}{y}) \rightarrow \UU\]
+and a defining equation
+\[c : \prd{x:A} C(x,x,\refl x),\]
+and gives us a value 
+\[g : \prd{x,y:A}\prd{p:\id{x}{y}}C(x,y,p).\]
+Since the defining equation we were provided is \(c \defeq \lam x \refl{\refl x}\) with type \[\prd{x:A}\id[\id{x}{x}]{\refl x}{\refl x},\] our chosen \(C\) must satisfy  \[C(x,x,\refl x) \equiv \id[\id{x}{x}]{\refl x}{\refl x}.\] 
+Additionally, since we want our result to ultimately have type \(\prd{x:A}{p:\id{x}{x}} (\id{p}{\refl{x}})\), \(C\) must also satisfy
+\[C(x,y,p) \equiv p = \refl x.\]
+Can we have both at once? Well, if \(C(x,y,p) \defeq (\id[\id{x}{x}]{p}{\refl x})\) then we will get everything we want. We can define 
+\[f(x) \defeq \ind {=_A} (C,c,x,x),\]
+so \[f : \prd{x:A} \prd{p:\id{x}{x}}(\id{p}{\refl x}),\]
+and it satisfies \(f(x,\refl x) \equiv c(x) \equiv \refl {\refl x}\). So we win. Or maybe we lose, since that's not supposed to be allowed. What's the problem? I don't know. Maybe you can tell me.
+
+Maybe the types don't fit? Consider \(x,y :A\) and \(p: \id[A]{x}{y}\). Then \[C(x,y,p) \equiv \id[\id{x}{x}]{p}{\refl x},\] but for the expression on the right hand side to make sense we need \(p:\id{x}{x}\) rather than \(p:\id{x}{y}\). My best guess is that we need judgemental equality rather than propositional equality to make this substitution, but this whole situation seems subtle enough that I'm not sure.
+\end{document}

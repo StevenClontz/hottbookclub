@@ -1,0 +1,21 @@
+\documentclass[12pt]{book}
+\input{./preamble}
+\begin{document}
+Translating them into types, we get 
+\begin{enumerate}[label=(\roman*)]
+\item \(\prod_{A,B:\UU} A \rightarrow B \rightarrow A,\)
+\item \(\prod_{A:\UU} A \rightarrow (A \rightarrow 0) \rightarrow 0,\)
+\item \(\prod_{A,B : \UU}( (A \rightarrow 0) + (B \rightarrow 0)) \rightarrow (A \times B) \rightarrow 0.\)
+\end{enumerate}
+For values of each type we have
+\begin{enumerate}[label=(\roman*)]
+\item \(\lam a \lam b a\),
+\item \(\lam a \lam f f(a)\),
+\item \(\rec {(A \rightarrow 0) + (B \rightarrow 0)}( (A \times B) \rightarrow 0, \lam f f \circ \mathsf{pr}_1 , \lam f f \circ \mathsf{pr}_2)\).
+\end{enumerate}
+The third value can be written without the recursor as
+\begin{align*}
+g(\inl(f), (a,b)) &\defeq f(a), \\
+g(\inr(f), (a,b)) &\defeq f(b).
+\end{align*}
+\end{document}
