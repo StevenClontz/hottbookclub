@@ -85,6 +85,21 @@ To be continued (maybe). I think that to get distributivity or associativity of 
 \end{align*}
 which likely need inductive constructions as well. This is where my patience for this kind of thing starts to run thin.
 
+Oh, it occurs to me that we can construct all of these at once with the induction rule for identity types. We just want to construct
+\[\mathsf{subst} : \prd{a,b:A}\prd{f:A \rightarrow B}\prd{p : \id{a}{b}} (\id{f(a)}{f(b)}),\]
+which we can do by
+\begin{align*}
+C(a:A,b:A,p:(\id{a}{b})) &\defeq \prd{f : A \rightarrow B} (f(a) = f(b)), \\
+c(a:A) &\defeq \prd{f: A \rightarrow B} \refl {f(a)},\\
+\mathsf{subst}_0 &\defeq \ind = (C, c),\\
+\mathsf{subst}(a,b,f,p) &\defeq \mathsf{subst}_0(a,b,p,f).
+\end{align*}
+This way we can have
+\begin{align*}
+\mathsf{spl}(a,b,c) &\defeq \mathsf{subst}(a,b,\lam x x + c),\\
+\mathsf{sml}(a,b,c) &\defeq \mathsf{subst}(a,b,\lam x x \times c),\\
+\end{align*}
+and so on. The exercise specified that we should only use \(\ind \nat\), though, which is unfortunate.
 
 
 
